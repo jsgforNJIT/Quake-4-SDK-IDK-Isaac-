@@ -64,7 +64,7 @@ entityDef weapon_blaster
 
 	"spawnclass"				"idItem"
 	"weaponclass"				"rvWeaponBlaster"
-	"weaponname"				"Blaster"
+	"weaponname"				"Revolvololvo"
 	"size"						"32 32 32"
 
   	"model_view"				"weapon_blaster_view"
@@ -85,11 +85,10 @@ entityDef weapon_blaster
 	"spread"					".2"
 
 //	"def_projectile"			"projectile_blaster"
-	"def_hitscan"				"hitscan_blaster"
 	"def_altprojectile"			"projectile_blaster_charged"
 	"ammoType"					"ammo_blaster"
-	"clipSize"					"0"
-	"ammoRequired"				"0"
+	
+	
 //	"launchFromBarrel"			"1"
 
 	"inv_weapon"				"weapon_blaster"
@@ -162,6 +161,18 @@ entityDef weapon_blaster
 	"weaponOffsetScale"			"0.003"
 	
 	"net_syncPhysics"			"1"
+
+
+	//New Stuff
+	"fireRateFaster"			"0.05"
+	"clipSize"					"6"
+	"ammoRequired"				"1"
+	"reloadRate"				"2.50"
+	"def_hitscan"				"hitscan_bullet"
+	"ammoClip"					"6"
+
+
+
 }
 
 //--------------------------------------------------------------------------------------------------------------------

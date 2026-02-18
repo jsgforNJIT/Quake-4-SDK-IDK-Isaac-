@@ -51,6 +51,10 @@ protected:
 
 private:
 
+	int					chargeTime;
+	int					fireHeldTime;
+
+
 	stateResult_t		State_Idle				( const stateParms_t& parms );
 	stateResult_t		State_Fire				( const stateParms_t& parms );
 	stateResult_t		State_Raise				( const stateParms_t& parms );
@@ -214,9 +218,11 @@ void rvWeaponRocketLauncher::OnLaunchProjectile ( idProjectile* proj ) {
 	rvWeapon::OnLaunchProjectile(proj);
 
 	// Double check that its actually a guided projectile
-	if ( !proj || !proj->IsType ( idGuidedProjectile::GetClassType() ) ) {
+	/*
+	if (!proj || !proj->IsType(idGuidedProjectile::GetClassType())) {
 		return;
 	}
+	*/
 
 	// Launch the projectile
 	idEntityPtr<idEntity> ptr;
@@ -447,8 +453,16 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
 			Attack ( false, 1, spread, 0, 1.0f );
+			gameLocal.Printf("WHY WON'T YOU DIE?");
+			Attack(true, 2, spread, 0, 1.0f);
+			/*if (gameLocal.time - fireHeldTime > chargeTime) {
+				Attack(true, 2, spread, 0, 1.0f);
+			}*/
+			fireHeldTime = gameLocal.time;
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
+
+
 	
 		case STAGE_WAIT:			
 			if ( wsfl.attack && gameLocal.time >= nextAttackTime && ( gameLocal.isClient || AmmoInClip ( ) ) && !wsfl.lowerWeapon ) {

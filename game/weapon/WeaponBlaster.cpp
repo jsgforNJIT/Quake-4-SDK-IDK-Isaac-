@@ -25,6 +25,9 @@ protected:
 	bool				UpdateFlashlight	( void );
 	void				Flashlight			( bool on );
 
+	//New Stuff: Variable Protected
+	float									reloadRate;
+
 private:
 
 	int					chargeTime;
@@ -32,6 +35,8 @@ private:
 	idVec2				chargeGlow;
 	bool				fireForced;
 	int					fireHeldTime;
+	//New Stuff: Variables
+	float				fireRateFaster;
 
 	stateResult_t		State_Raise				( const stateParms_t& parms );
 	stateResult_t		State_Lower				( const stateParms_t& parms );
@@ -40,6 +45,11 @@ private:
 	stateResult_t		State_Charged			( const stateParms_t& parms );
 	stateResult_t		State_Fire				( const stateParms_t& parms );
 	stateResult_t		State_Flashlight		( const stateParms_t& parms );
+
+	//New Stuff: State
+	stateResult_t		State_Blaster_Reload	( const stateParms_t& parms );
+
+
 	
 	CLASS_STATES_PROTOTYPE ( rvWeaponBlaster );
 };
@@ -155,6 +165,7 @@ void rvWeaponBlaster::Spawn ( void ) {
 
 	fireHeldTime		= 0;
 	fireForced			= false;
+	reloadRate = SEC2MS(spawnArgs.GetFloat("reloadRate", "0.05"));
 			
 	Flashlight ( owner->IsFlashlightOn() );
 }
@@ -225,6 +236,10 @@ CLASS_STATES_DECLARATION ( rvWeaponBlaster )
 	STATE ( "Charged",						rvWeaponBlaster::State_Charged )
 	STATE ( "Fire",							rvWeaponBlaster::State_Fire )
 	STATE ( "Flashlight",					rvWeaponBlaster::State_Flashlight )
+
+	//New Stuff: States_Declaration
+	STATE ( "Blaster_Reload",				rvWeaponBlaster::State_Blaster_Reload)
+
 END_CLASS_STATES
 
 /*
@@ -308,6 +323,22 @@ stateResult_t rvWeaponBlaster::State_Idle ( const stateParms_t& parms ) {
 			return SRESULT_STAGE ( IDLE_WAIT );
 			
 		case IDLE_WAIT:
+			if (AmmoAvailable() > AmmoInClip()) {
+				if (ClipSize() > 1) {
+					if (gameLocal.time > nextAttackTime && AmmoInClip() < ClipSize()) {
+						if (!AmmoInClip() || !wsfl.attack) {
+							SetState("Blaster_Reload", 0);
+							return SRESULT_DONE;
+						}
+					}
+				}
+				else {
+					if (AmmoInClip() == 0) {
+						SetState("Blaster_Reload", 0);
+						return SRESULT_DONE;
+					}
+				}
+			}
 			if ( wsfl.lowerWeapon ) {
 				SetState ( "Lower", 4 );
 				return SRESULT_DONE;
@@ -323,6 +354,76 @@ stateResult_t rvWeaponBlaster::State_Idle ( const stateParms_t& parms ) {
 	}
 	return SRESULT_ERROR;
 }
+
+/*
+================
+rvWeaponRocketLauncher::State_Blaster_Reload
+================
+*/
+stateResult_t rvWeaponBlaster::State_Blaster_Reload(const stateParms_t& parms) {
+	enum {
+		STAGE_INIT,
+		STAGE_WAIT,
+	};
+
+	switch (parms.stage) {
+	case STAGE_INIT: {
+		//const char* animName;
+		//int			animNum;
+
+		/*
+		if (idleEmpty) {
+			animName = "ammo_pickup";
+			idleEmpty = false;
+		}
+		else if (AmmoAvailable() == AmmoInClip() + 1) {
+			animName = "reload_empty";
+		}
+		else {
+			animName = "reload";
+		}
+		
+
+		animNum = viewModel->GetAnimator()->GetAnim(animName);
+		if (animNum) {
+			idAnim* anim;
+			anim = (idAnim*)viewModel->GetAnimator()->GetAnim(animNum);
+			anim->SetPlaybackRate((float)anim->Length() / (reloadRate * owner->PowerUpModifier(PMOD_FIRERATE)));
+		}
+
+		PlayAnim(ANIMCHANNEL_TORSO, animName, parms.blendFrames);
+		*/
+		PlayAnim(ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames);
+		gameLocal.Printf(" Blaster_Reload is working:   (%i)  out of  (%i);   ", ammoClip, clipSize);
+		return SRESULT_STAGE(STAGE_WAIT);
+	}
+
+	case STAGE_WAIT:
+		if (!wsfl.attack && gameLocal.time > nextAttackTime && AmmoInClip() < ClipSize()) {
+			SetState("Blaster_Reload", 0);
+			ammoClip = clipSize;
+		}
+		else {
+			SetState("Idle", 0);
+		}
+			return SRESULT_DONE;
+		/*
+		if ( gameLocal.isMultiplayer && gameLocal.time > nextAttackTime && wsfl.attack ) {
+			if ( AmmoInClip ( ) == 0 )
+			{
+				AddToClip ( ClipSize() );
+			}
+			SetRocketState ( "Rocket_Idle", 0 );
+			return SRESULT_DONE;
+		}
+		*/
+		return SRESULT_WAIT;
+	}
+	return SRESULT_ERROR;
+}
+
+
+
 
 /*
 ================
@@ -430,10 +531,14 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 				Attack ( true, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
+				gameLocal.Printf("FULLY Charged, (%i)", gameLocal.time - fireHeldTime);
 			} else {
 				Attack ( false, 1, spread, 0, 1.0f );
-				PlayEffect ( "fx_normalflash", barrelJointView, false );
+				if (ammoClip > 0) {
+					PlayEffect("fx_normalflash", barrelJointView, false);
+				}
 				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
+				gameLocal.Printf("NOT Charged, (%i)", gameLocal.time - fireHeldTime);
 			}
 			fireHeldTime = 0;
 			
@@ -441,7 +546,7 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 		
 		case FIRE_WAIT:
 			if ( AnimDone ( ANIMCHANNEL_ALL, 4 ) ) {
-				SetState ( "Idle", 4 );
+				SetState ( "Blaster_Reload", 4 );
 				return SRESULT_DONE;
 			}
 			if ( UpdateFlashlight ( ) || UpdateAttack ( ) ) {

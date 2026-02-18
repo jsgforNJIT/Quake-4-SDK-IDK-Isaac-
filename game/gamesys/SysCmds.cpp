@@ -26,9 +26,9 @@
 // RAVEN END
 
 #ifdef _WIN32
-#include "TypeInfo.h"
+	#include "TypeInfo"
 #else
-#include "NoGameTypeInfo.h"
+	#include "NoGameTypeInfo.h"
 #endif
 
 /*
@@ -171,7 +171,7 @@ void Cmd_ListSpawnArgs_f( const idCmdArgs &args ) {
 
 	for ( i = 0; i < ent->spawnArgs.GetNumKeyVals(); i++ ) {
 		const idKeyValue *kv = ent->spawnArgs.GetKeyVal( i );
-		gameLocal.Printf( "\"%s\"  "S_COLOR_WHITE"\"%s\"\n", kv->GetKey().c_str(), kv->GetValue().c_str() );
+		gameLocal.Printf( "\"%s\"  " S_COLOR_WHITE "\"%s\"\n", kv->GetKey().c_str(), kv->GetValue().c_str() );
 	}
 }
 
@@ -2930,6 +2930,15 @@ void Cmd_ToggleBuyMenu_f( const idCmdArgs& args ) {
 	}
 }
 
+void Cmd_WhereAmI_f( const idCmdArgs& args ) {
+	idVec3 origin = {};
+	idMat3 axis = {};
+
+	idPlayer* player = gameLocal.GetLocalPlayer();
+	gameLocal.Printf("Heeeeeeelp!");	
+
+}
+
 void Cmd_BuyItem_f( const idCmdArgs& args ) {
 	idPlayer* player = gameLocal.GetLocalPlayer();
 	if ( !player ) {
@@ -3233,6 +3242,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "buy",					Cmd_BuyItem_f,				CMD_FL_GAME,				"Buy an item (if in a buy zone and the game type supports it)" );
 // RITUAL END
 
+//Another thing
+	cmdSystem->AddCommand("findHelp", Cmd_WhereAmI_f, CMD_FL_GAME, "Screams in the console for help");
 }
 
 /*
