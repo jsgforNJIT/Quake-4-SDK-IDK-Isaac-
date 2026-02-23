@@ -402,6 +402,7 @@ stateResult_t rvWeaponBlaster::State_Blaster_Reload(const stateParms_t& parms) {
 		if (!wsfl.attack && gameLocal.time > nextAttackTime && AmmoInClip() < ClipSize()) {
 			SetState("Blaster_Reload", 0);
 			ammoClip = clipSize;
+			PlayEffect("fx_normalflash", barrelJointView, false);
 		}
 		else {
 			SetState("Idle", 0);
@@ -536,8 +537,12 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 				Attack ( false, 1, spread, 0, 1.0f );
 				if (ammoClip > 0) {
 					PlayEffect("fx_normalflash", barrelJointView, false);
+					PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
 				}
-				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
+				else {
+					gameLocal.Printf("          MAGAZINE IS EMPTY          ");
+				}
+				
 				gameLocal.Printf("NOT Charged, (%i)", gameLocal.time - fireHeldTime);
 			}
 			fireHeldTime = 0;
@@ -545,9 +550,11 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 			return SRESULT_STAGE(FIRE_WAIT);
 		
 		case FIRE_WAIT:
+			
+			SetState("Blaster_Reload", 4);
+			return SRESULT_DONE; 
 			if ( AnimDone ( ANIMCHANNEL_ALL, 4 ) ) {
-				SetState ( "Blaster_Reload", 4 );
-				return SRESULT_DONE;
+				
 			}
 			if ( UpdateFlashlight ( ) || UpdateAttack ( ) ) {
 				return SRESULT_DONE;
