@@ -168,7 +168,7 @@ entityDef weapon_blaster
 	"clipSize"					"6"
 	"ammoRequired"				"1"
 	"reloadRate"				"2.50"
-	"def_hitscan"				"hitscan_bullet"
+	"def_hitscan"				"hitscan_blaster"
 	"ammoClip"					"6"
 
 
@@ -270,7 +270,7 @@ entityDef projectile_blaster
 																
 	"def_damage"				"damage_blaster"
 								
-	"velocity"					"1500 0 0"
+	"velocity"					"200 0 0"
 	"fuse"						"4"
 	"push"						"7500"
 								

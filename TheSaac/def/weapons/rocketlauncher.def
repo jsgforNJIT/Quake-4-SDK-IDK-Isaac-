@@ -132,8 +132,9 @@ entityDef weapon_rocketlauncher
 
 	"net_syncPhysics"			"1"
 
+	//New Stuff
 	"chargeTime"				".8"
-	"def_altprojectile"			"projectile_grenade"
+	"def_altprojectile"			"projectile_rocket"
 	"def_projectile"			"projectile_blaster_charged"
 }
 
@@ -333,8 +334,8 @@ entityDef projectile_rocket
 	"def_damage"				"damage_rocketDirect"
 	"def_splash_damage"			"damage_rocketSplash"
 																											
-	"speed"						"900"
-	"fuse"						"6"
+	"speed"						"200"
+	"fuse"						"30"
 	"push"						"48000"
 	
 							
