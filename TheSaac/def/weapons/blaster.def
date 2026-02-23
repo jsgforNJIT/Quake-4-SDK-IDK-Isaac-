@@ -270,8 +270,8 @@ entityDef projectile_blaster
 																
 	"def_damage"				"damage_blaster"
 								
-	"velocity"					"200 0 0"
-	"fuse"						"4"
+	"velocity"					"20 0 0"
+	"fuse"						"30"
 	"push"						"7500"
 								
 	"detonate_on_fuse"			"1"
