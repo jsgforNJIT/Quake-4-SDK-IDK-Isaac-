@@ -534,7 +534,7 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
 				gameLocal.Printf("FULLY Charged, (%i)", gameLocal.time - fireHeldTime);
 			} else {
-				Attack ( false, 1, spread, 0, 1.0f );
+				Attack ( true, 1, spread, 0, 1.0f );
 				if (ammoClip > 0) {
 					PlayEffect("fx_normalflash", barrelJointView, false);
 					PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
