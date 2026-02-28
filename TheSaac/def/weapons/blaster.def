@@ -344,7 +344,7 @@ entityDef damage_blastersplash_charged
 	"inherit"					"damage_blaster"
 	
 	"damage"					"40"
-	"radius"					"50"
+	"radius"					"15"
 	"knockback"					"30"
 	"push"						"2500"
 }

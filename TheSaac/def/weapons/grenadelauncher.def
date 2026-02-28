@@ -75,7 +75,7 @@ entityDef weapon_grenadelauncher
 	"joint_world_flash"			"muzzle_flash"
 
 	"fireRate"					".8"
-	"spread"					"0"
+	"spread"					"30"
 	
 	// the direction of projectile launches will be modified by this
 	"dirOffset"					"0 0 .2"
@@ -257,7 +257,7 @@ entityDef projectile_grenade
 								
 	"detonate_on_fuse"			"1"
 	"detonate_on_death"			"0"
-	"detonate_on_world"			"0"
+	"detonate_on_world"			"1"
 	"detonate_on_actor"			"1"
 	"detonateTestGroundMaterial"	"1"
 								
@@ -318,7 +318,7 @@ entityDef damage_grenadeDirect_mp
 entityDef damage_grenadeSplash 
 {
 	"damage"					"200"
-	"radius"					"250"
+	"radius"					"10"
 	"knockback"					"100"
 	"push"						"10000"
 	"gib"						"0"
