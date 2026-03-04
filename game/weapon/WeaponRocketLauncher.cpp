@@ -183,7 +183,7 @@ void rvWeaponRocketLauncher::Think ( void ) {
 // ddynerman: multiple clip worlds
 	gameLocal.TracePoint(	owner, tr, 
 							playerViewOrigin, 
-							playerViewOrigin + playerViewAxis[0] * guideRange, 
+							playerViewOrigin + playerViewAxis[0], 
 							MASK_SHOT_RENDERMODEL, owner );
 // RAVEN END
 	
