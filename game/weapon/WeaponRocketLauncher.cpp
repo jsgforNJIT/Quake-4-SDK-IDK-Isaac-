@@ -51,7 +51,7 @@ protected:
 
 private:
 
-	int					chargeTime;
+	//int					goBackTimer;
 	int					fireHeldTime;
 
 
@@ -154,8 +154,10 @@ void rvWeaponRocketLauncher::Think ( void ) {
 	if ( !guideRange ) {
 		return;
 	}
+	//gameLocal.Printf(" Go back timer (%i);   ", goBackTimer);
+	gameLocal.Printf(" Minus and stuff :   (%i), (%i), (%i);   \n", fireHeldTime, gameLocal.time, 2000);
 	
-	if ( !wsfl.zoom ) {
+	if (gameLocal.time - fireHeldTime < 2000) {
 		if ( guideEffect ) {
 			guideEffect->Stop();
 			guideEffect = NULL;
@@ -177,6 +179,7 @@ void rvWeaponRocketLauncher::Think ( void ) {
 
 		return;
 	}
+	
 						
 	// Cast a ray out to the lock range
 // RAVEN BEGIN
@@ -196,7 +199,7 @@ void rvWeaponRocketLauncher::Think ( void ) {
 		
 		// If the rocket isnt guiding yet then adjust its speed back to normal
 		if ( proj->GetGuideType ( ) == idGuidedProjectile::GUIDE_NONE ) {
-			proj->SetSpeed ( guideSpeedSlow, (proj->GetSpeed ( ) - guideSpeedSlow) / (guideSpeedFast - guideSpeedSlow) * guideAccelTime );
+			proj->SetSpeed ( guideSpeedFast, (proj->GetSpeed ( ) - guideSpeedSlow) / (guideSpeedFast - guideSpeedSlow) * guideAccelTime );
 		}
 		proj->GuideTo ( tr.endpos );				
 	}
@@ -453,8 +456,10 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
 			Attack ( false, 1, spread, 0, 1.0f );
-			gameLocal.Printf("WHY WON'T YOU DIE?");
-			Attack(true, 2, spread, 0, 1.0f);
+			fireHeldTime = gameLocal.time;
+			gameLocal.Printf("WHY WON'T YOU DIE? ");
+			gameLocal.Printf(" Auto return time :   (%i);   ", fireHeldTime);
+			//Attack(true, 2, spread, 0, 1.0f);
 			/*if (gameLocal.time - fireHeldTime > chargeTime) {
 				Attack(true, 2, spread, 0, 1.0f);
 			}*/

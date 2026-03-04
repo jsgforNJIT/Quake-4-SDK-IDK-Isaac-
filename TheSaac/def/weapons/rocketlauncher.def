@@ -133,8 +133,8 @@ entityDef weapon_rocketlauncher
 	"net_syncPhysics"			"1"
 
 	//New Stuff
-	"chargeTime"				".8"
-	"def_altprojectile"			"projectile_rocket"
+	//"goBackTimer"				"3"				Damn only works with magic number, set to 2000
+	//"def_altprojectile"			"projectile_rocket"
 	"def_projectile"			"projectile_blaster_charged"
 }
 
