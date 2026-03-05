@@ -37,6 +37,7 @@ private:
 	int					fireHeldTime;
 	//New Stuff: Variables
 	float				fireRateFaster;
+	char				weaponclass[];
 
 	stateResult_t		State_Raise				( const stateParms_t& parms );
 	stateResult_t		State_Lower				( const stateParms_t& parms );
@@ -48,6 +49,7 @@ private:
 
 	//New Stuff: State
 	stateResult_t		State_Blaster_Reload	( const stateParms_t& parms );
+	
 
 
 	
@@ -156,6 +158,7 @@ rvWeaponBlaster::Spawn
 ================
 */
 void rvWeaponBlaster::Spawn ( void ) {
+	gameLocal.Printf("Weapon Class:   (%s); \n", weaponclass);
 	viewModel->SetShaderParm ( BLASTER_SPARM_CHARGEGLOW, 0 );
 	SetState ( "Raise", 0 );
 	
