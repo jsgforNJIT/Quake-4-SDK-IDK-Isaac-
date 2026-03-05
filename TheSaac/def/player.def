@@ -683,6 +683,13 @@ entityDef player_marine
 	"weapon10_best"						"0"
 	"weapon10_cycle"					"1"	
 
+
+	//New Weapon
+	"def_weapon11"						"weapon_blaster2"
+	"weapon11_best"						"1"
+	"weapon11_cycle"					"1"
+	"weapon0_flashlight"				"1"
+
 	"mtr_wound"						"textures/decals/hurt02"
 	"mtr_splat"						"textures/decals/dsplat2"
 	"mtr_splat2"						"textures/decals/dsplat5"

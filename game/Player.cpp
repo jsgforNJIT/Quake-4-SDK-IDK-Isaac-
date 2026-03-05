@@ -5333,6 +5333,7 @@ void idPlayer::GiveItem( const char *itemname ) {
 	args.Set( "classname", itemname );
 	args.Set( "owner", name.c_str() );
 	args.Set( "givenToPlayer", va( "%d", entityNumber ) );
+	gameLocal.Printf(" Item Name: (%c),  Owner: (%s),  GivenToPlayer (%i);   \n", itemname, name.c_str(), entityNumber);
 
 	if ( gameLocal.mpGame.IsBuyingAllowedInTheCurrentGameMode() ) {
 		// check if this is a weapon
