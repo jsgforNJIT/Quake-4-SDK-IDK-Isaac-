@@ -60,11 +60,11 @@ entityDef weapon_hyperblaster
 	"editor_mins"				"-16 -16 0"
 	"editor_maxs"				"16 16 32"
 
-	"editor_usage"				"Blaster2"
+	"editor_usage"				"Blaster"
 
 	"spawnclass"				"idItem"
 	"weaponclass"				"rvWeaponHyperblaster"
-	"weaponname"				"RevolvoLeSecond"
+	"weaponname"				"Blaster"
 	"size"						"32 32 32"
 
   	"model_view"				"weapon_blaster_view"
@@ -85,16 +85,17 @@ entityDef weapon_hyperblaster
 	"spread"					".2"
 
 //	"def_projectile"			"projectile_blaster"
+	"def_hitscan"				"hitscan_blaster"
 	"def_altprojectile"			"projectile_blaster_charged"
 	"ammoType"					"ammo_blaster"
-	
-	
+	"clipSize"					"0"
+	"ammoRequired"				"0"
 //	"launchFromBarrel"			"1"
 
 	"inv_weapon"				"weapon_hyperblaster"
-	"inv_item"					"1"
+	"inv_item"					"5"
 	"inv_icon"					"gfx/guis/hud/icons/item_blaster.tga"
-	"inv_name"					"Blaster 2"
+	"inv_name"					"#str_107400"
 
 //	"gui"						"guis/weapons/blaster_ammo.gui"
 	"mtr_icon"					"gfx/guis/hud/icons/gun_blaster"
@@ -102,6 +103,67 @@ entityDef weapon_hyperblaster
 	"mtr_crosshair"				"gfx/guis/crosshairs/crosshair_blaster"
 //	"crosshairOffsetX"			"2"
 //	"crosshairOffsetY"			"2"
+
+	// -------------------- Recoil and Muzzle Kick ---------------------------------------
+
+	"muzzle_kick_time"			"0.1"
+	"muzzle_kick_maxtime"		"0.2"
+	"muzzle_kick_angles"		"-5 0 0"
+	"muzzle_kick_offset"		"2 0 0"
+
+	"recoilTime"				"100"
+	"recoilAngles"				"-2 0 0"
+	
+	// ---------------------------- Flashlight ---------------------------------------
+	
+	"mtr_flashlightShader"		"gfx/lights/flashlight"
+	"flashlightColor"			"1 1 .9"
+	"flashlightRadius"			"400"
+	"flashlightAngle"			"15.0"
+	"flashlightTarget"			"1000 0 0"
+	"flashlightUp"				"0 375 0"
+	"flashlightRight"			"0 0 -375"
+	"flashlightPointLight"		"0"
+
+
+	// ---------------------------- Muzzle Flash ---------------------------------------
+
+	"mtr_flashShader"			"lights/muzzleflash"
+	"flashColor"				"0.7 0.8 1"
+	"flashRadius"				"200"
+	"flashPointLight"			"1"
+	"flashTime"					".1"
+	"flashViewOffset"			"15 5 -10"
+
+	// ------------------------- Sounds and Effects ---------------------------------------
+	  	
+	"snd_charge"				"weapon_blaster_charge"
+	"snd_charge_loop"			"weapon_blaster_charged"
+	"snd_charge_click"			"weapon_blaster_charge_click"
+	"snd_quaddamage"			"weapon_quaddamage_fire"
+
+ 	"fx_normalflash"			"effects/weapons/blaster/muzzleflash.fx"
+ 	"fx_chargedflash"			"effects/weapons/blaster/charged/muzzleflash.fx"		
+	"fx_respawn"				"effects/mp/itemrespawn.fx"
+ 	"fx_muzzleflash_world"		"effects/weapons/blaster/muzzleflash_world.fx"
+
+	"snd_acquire"				"pickup_weapon"
+
+	"def_viewStyle"				"viewStyle_q3_blaster"
+	"def_viewStyle1"			"viewStyle_shouldered_blaster"
+
+ 	
+	"foreshorten"				".65"
+	
+	"weaponAngleOffsetAverages" "10"
+	"weaponAngleOffsetScale" 	".25"
+	"weaponAngleOffsetMax"		"10"
+	"weaponOffsetTime"			"600"
+	"weaponOffsetScale"			"0.003"
+	
+	"net_syncPhysics"			"1"
+}
+
 
 	// -------------------- Recoil and Muzzle Kick ---------------------------------------
 
