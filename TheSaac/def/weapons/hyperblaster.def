@@ -82,11 +82,10 @@ entityDef weapon_hyperblaster
 	"chargeDelay"				".1"
 	"chargeGlow"				"0 .4"
 	"fireRate"					".15"
-	"spread"					".2"
 
 //	"def_projectile"			"projectile_blaster"
 	"def_hitscan"				"hitscan_blaster"
-	"def_altprojectile"			"projectile_blaster_charged"
+	"def_altprojectile"			"projectile_grenade"
 	"ammoType"					"ammo_blaster"
 	"clipSize"					"0"
 	"ammoRequired"				"0"
@@ -232,7 +231,8 @@ entityDef weapon_hyperblaster
 	"reloadRate"				"2.50"
 	"def_hitscan"				"hitscan_bullet"
 	"ammoClip"					"6"
-
+	"spread"					"30"
+	"numGrenade"				"16"
 
 
 }

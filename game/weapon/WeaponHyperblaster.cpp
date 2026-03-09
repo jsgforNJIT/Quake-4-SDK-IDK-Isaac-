@@ -37,6 +37,7 @@ private:
 	int					fireHeldTime;
 	//New Stuff: Variables
 	float				fireRateFaster;
+	int					numGrenade;
 
 	stateResult_t		State_Raise				( const stateParms_t& parms );
 	stateResult_t		State_Lower				( const stateParms_t& parms );
@@ -437,15 +438,17 @@ stateResult_t rvWeaponHyperblaster::State_Fire(const stateParms_t& parms) {
 			return SRESULT_DONE;
 		}
 
-
+		numGrenade = 16;
+		spread = 30;
 
 		if (gameLocal.time - fireHeldTime > chargeTime) {
-			Attack(true, 1, spread, 0, 1.0f);
+			gameLocal.Printf("Weapon Class:   (%i); \n", numGrenade);
+			Attack(true, numGrenade, spread, 0, 1.0f);
 			PlayEffect("fx_chargedflash", barrelJointView, false);
 			PlayAnim(ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames);
 		}
 		else {
-			Attack(false, 1, spread, 0, 1.0f);
+			Attack(true, (numGrenade * (gameLocal.time - fireHeldTime)/chargeTime), spread, 0, 1.0f);
 			PlayEffect("fx_normalflash", barrelJointView, false);
 			PlayAnim(ANIMCHANNEL_ALL, "fire", parms.blendFrames);
 		}
