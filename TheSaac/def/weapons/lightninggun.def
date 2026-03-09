@@ -83,7 +83,7 @@ entityDef weapon_lightninggun
 
 	"mtr_crosshair"				"gfx/guis/crosshairs/crosshair_lightninggun"
 	"ammoType"					"ammo_lightninggun"
-	"ammoRequired"				"1"
+	"ammoRequired"				"0"
 	"clipSize"					"0"
 	"lowAmmo"					"10"
 	"mtr_icon"					"gfx/guis/hud/icons/gun_lightninggun"
@@ -152,6 +152,13 @@ entityDef weapon_lightninggun
 	"snd_noAmmo"				"weapon_lightninggun_dryfire"
 
 	"net_syncPhysics"			"1"
+
+	//New Stuff
+	"chargeTime"				"100"
+	"fireHeldTime"				"0"
+	"fireDuration"				"500"
+	//NGL kinda gonna have to put these in the cpp file.
+
 }
 
 entityDef moveable_item_lightning_gun

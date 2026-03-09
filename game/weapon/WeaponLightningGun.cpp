@@ -74,6 +74,11 @@ protected:
 	idList<rvLightningPath>				chainLightning;
 	idVec3								chainLightningRange;
 
+	// New Stuff
+	int chargeTime = 1000;
+	int fireHeldTime = 0;
+	int fireDuration = 2000;
+
 private:
 
 	void				Attack					( idEntity* ent, const idVec3& dir, float power = 1.0f );
@@ -262,7 +267,7 @@ void rvWeaponLightningGun::Think ( void ) {
 	UpdateTubes();
 
 	// If no longer firing or out of ammo then nothing to do in the think
-	if ( !wsfl.attack || !IsReady() || !AmmoAvailable() ) {
+	if ( !wsfl.attack || !IsReady() || !AmmoAvailable() || gameLocal.GetTime() - fireHeldTime < chargeTime || gameLocal.GetTime() - fireHeldTime > fireDuration + chargeTime) {
 		if ( trailEffectView ) {
 			trailEffectView->Stop ( );
 			trailEffectView = NULL;
@@ -326,7 +331,7 @@ void rvWeaponLightningGun::Think ( void ) {
 	}
 
 	// Play the lightning crawl effect every so often when doing damage
-	if ( gameLocal.time > nextCrawlTime ) {
+	if (gameLocal.GetTime() - fireHeldTime > chargeTime || gameLocal.GetTime() - fireHeldTime < fireDuration + chargeTime) {
 		nextCrawlTime = gameLocal.time + SEC2MS(spawnArgs.GetFloat ( "crawlDelay", ".3" ));
 	}
 }
@@ -358,7 +363,10 @@ void rvWeaponLightningGun::Attack ( idEntity* ent, const idVec3& dir, float powe
 		statManager->WeaponHit( (idActor*)owner, ent, owner->GetCurrentWeapon() );
 	}
 // RAVEN END
-	ent->Damage( owner, owner, dir, spawnArgs.GetString ( "def_damage" ), power * owner->PowerUpModifier( PMOD_PROJECTILE_DAMAGE ), 0 );
+	//This part deals with damage
+	if (gameLocal.time - fireHeldTime > chargeTime) {
+		ent->Damage(owner, owner, dir, spawnArgs.GetString("def_damage"), power * owner->PowerUpModifier(PMOD_PROJECTILE_DAMAGE), 0);
+	}
 }
 
 /*
@@ -820,6 +828,9 @@ stateResult_t rvWeaponLightningGun::State_Fire( const stateParms_t& parms ) {
 			StartSound( "snd_fire", SND_CHANNEL_WEAPON, 0, false, NULL );
 			StartSound( "snd_fire_stereo", SND_CHANNEL_ITEM, 0, false, NULL );
 			StartSound( "snd_fire_loop", SND_CHANNEL_BODY2, 0, false, NULL );
+
+			gameLocal.Printf("Blimey! \n");
+			fireHeldTime = gameLocal.GetTime();
 			
 			viewModel->SetShaderParm( 6, 0 );
 
@@ -834,6 +845,7 @@ stateResult_t rvWeaponLightningGun::State_Fire( const stateParms_t& parms ) {
 			return SRESULT_STAGE( STAGE_ATTACKLOOP );
 		
 		case STAGE_ATTACKLOOP:
+			//This doesn't control the damage
 			if ( !wsfl.attack || wsfl.lowerWeapon || !AmmoAvailable ( ) ) {
 				return SRESULT_STAGE ( STAGE_DONE );
 			}
@@ -844,6 +856,7 @@ stateResult_t rvWeaponLightningGun::State_Fire( const stateParms_t& parms ) {
 					owner->playerView.SetShakeParms( MS2SEC(gameLocal.GetTime() + 500), 2.0f );
 				}
 			}
+			
 			return SRESULT_WAIT;
 						
 		case STAGE_DONE:
