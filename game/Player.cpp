@@ -2785,7 +2785,7 @@ void idPlayer::SpawnToPoint( const idVec3 &spawn_origin, const idAngles &spawn_a
 	idVec3 spec_origin;
 
 	assert( !gameLocal.isClient );
-
+	gameLocal.Printf("HOLLA HOLLA GET DOLLA");
 // RITUAL BEGIN
 // squirrel: Mode-agnostic buymenus
 	if ( gameLocal.mpGame.IsBuyingAllowedInTheCurrentGameMode() ) {

@@ -814,6 +814,9 @@ entityDef player_marine
 	"no_fall_delta"						"7" 
 	
 	"def_playerView"					"playerView_marine"
+
+	//New Stuff
+	//They already have money in 'cash' "playermoney"						"0"
 }
 
 entityDef player_strogg
