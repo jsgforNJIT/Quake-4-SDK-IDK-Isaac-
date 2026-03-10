@@ -644,6 +644,8 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 	};	
 	switch ( parms.stage ) {
 		case STAGE_INIT:
+			Attack(false, 10, 15, 0.0f, 1.0f);
+			gameLocal.Printf("initial burst working");
 			if ( !wsfl.attack ) {
 				SetState ( "Idle", parms.blendFrames );				
 				return SRESULT_DONE;
@@ -657,6 +659,7 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 			return SRESULT_STAGE ( STAGE_FIRE );
 			
 		case STAGE_FIRE:
+			gameLocal.Printf("sustained fire working");
 			if ( !wsfl.attack || wsfl.reload || wsfl.lowerWeapon || AmmoInClip ( ) <= 0 ) {
 				return SRESULT_STAGE ( STAGE_DONE );
 			}
@@ -693,6 +696,8 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 			return SRESULT_WAIT;
 			
 		case STAGE_DONE:
+			gameLocal.Printf("rail cannon working \n");
+			Attack(true, 1, spread, 0.0f, 1.0f);
 			if ( clipSize && wsfl.attack && !wsfl.lowerWeapon && !wsfl.reload ) {
 				PlayCycle ( ANIMCHANNEL_LEGS, "spinempty", 4 );
 				return SRESULT_STAGE ( STAGE_SPINEMPTY );

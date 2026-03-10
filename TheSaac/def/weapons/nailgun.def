@@ -124,7 +124,7 @@ entityDef weapon_nailgun
 	"mtr_icon"					"gfx/guis/hud/icons/gun_nailgun"
 
 	"def_projectile"			"projectile_nail"
-	"def_altprojectile"			"projectile_nail_seek"
+	"def_althitscan"			"hitscan_railgun"
 	"ammoType"					"ammo_nailgun"
 	"ammoRequired"				"1"
 	"clipSize"					"50"
