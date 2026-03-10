@@ -96,8 +96,8 @@ entityDef weapon_machinegun
 	"spread"					"2"
 
 	"mtr_crosshair"				"gfx/guis/crosshairs/crosshair_machinegun"
-	"def_hitscan"				"hitscan_bullet"
-	"def_althitscan"			"hitscan_zoomed_bullet"
+	//"def_hitscan"				"hitscan_bullet"
+	//"def_althitscan"			"hitscan_zoomed_bullet"
 	
 	"ammoType"					"ammo_machinegun"
 	"ammoRequired"				"1"
@@ -181,6 +181,10 @@ entityDef weapon_machinegun
  	"hidesurface"				"models/weapons/blaster/flare"
 
 	"net_syncPhysics"			"1"
+
+	//New Stuff
+	"def_projectile"			"projectile_blaster_charged"
+	"def_altprojectile"			"projectile_blaster_charged"
 }
 
 entityDef weapon_machinegun_mp

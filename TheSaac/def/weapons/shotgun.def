@@ -90,7 +90,7 @@ entityDef weapon_shotgun
 	"inv_name"				"#str_107410"
 
 	"weaponname"				"Shotgun"
-	"def_hitscan"				"hitscan_shotgun_pellet"
+	//"def_hitscan"				"hitscan_shotgun_pellet"
 	"mtr_crosshair"				"gfx/guis/crosshairs/crosshair_shotgun"
 	"ammoType"				"ammo_shotgun"
 	"clipSize"				"8"
@@ -146,6 +146,9 @@ entityDef weapon_shotgun
 	"glightColor"				"1 0 0 1"
 
 	"net_syncPhysics"			"1"
+
+	//New Stuff
+	"def_projectile"			"projectile_blaster_charged"
 }
 
 entityDef weapon_shotgun_mp

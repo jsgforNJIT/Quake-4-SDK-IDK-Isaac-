@@ -335,7 +335,7 @@ entityDef projectile_rocket
 	"def_splash_damage"			"damage_rocketSplash"
 																											
 	"speed"						"200"
-	"fuse"						"30"
+	"fuse"						"10"
 	"push"						"48000"
 	
 							
