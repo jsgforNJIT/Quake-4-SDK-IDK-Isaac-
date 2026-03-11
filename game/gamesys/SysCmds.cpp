@@ -1153,6 +1153,7 @@ void Cmd_Spawn_f( const idCmdArgs &args ) {
 
 	if (newEnt)	{
 		gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+		gameLocal.Printf("\n Value: %s \n", value);
 	}
 // RAVEN END
 #endif // !_MPBETA

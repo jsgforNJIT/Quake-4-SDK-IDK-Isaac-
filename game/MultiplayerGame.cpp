@@ -3480,6 +3480,7 @@ void idMultiplayerGame::UpdateMainGui( void ) {
 idMultiplayerGame::SetupBuyMenuItems
 ================
 */
+//Might wanna edit this one
 void idMultiplayerGame::SetupBuyMenuItems()
 {
 	idPlayer* player = gameLocal.GetLocalPlayer();
@@ -9117,6 +9118,7 @@ idMultiplayerGame::IsBuyingAllowedInTheCurrentGameMode
 ================
 */
 bool idMultiplayerGame::IsBuyingAllowedInTheCurrentGameMode( void ) {
+	/*
 	if ( !gameLocal.isMultiplayer ) {
 		return false;
 	}
@@ -9126,6 +9128,9 @@ bool idMultiplayerGame::IsBuyingAllowedInTheCurrentGameMode( void ) {
 	}
 
 	return false;
+	*/
+	gameLocal.Printf("IsBuyingAllowedInTheCurrentGameMode triggered \n");
+	return true;
 }
 
 

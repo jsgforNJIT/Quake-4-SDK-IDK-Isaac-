@@ -504,7 +504,24 @@ stateResult_t rvWeaponRailgun::State_Fire(const stateParms_t& parms) {
 				noClipTime = gameLocal.GetTime();
 			}
 			else if (powerThing == 4) {
-				gameLocal.Printf("\nPower Activated: Marine guy			(Doesn't Work Yet)\n");
+				gameLocal.Printf("\nPower Activated: Summon a friend\n");
+				idDict marn;
+				marn.Set("classname", "char_marine");
+
+				float yaw = owner->viewAngles.yaw;
+				gameLocal.Printf("%f \n", yaw);
+				marn.Set("angle", va("%f", yaw + 180));
+
+				idVec3	org = playerViewOrigin + playerViewAxis[0] * 1;
+				gameLocal.Printf(org.ToString());
+				gameLocal.Printf("\n");
+				marn.Set("origin", org.ToString());
+
+				//idEntity* newEnt = NULL;
+				gameLocal.SpawnEntityDef(marn);
+				/*if (newEnt) {
+					gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+				}*/
 			}
 			else if (powerThing == 5) {
 				gameLocal.Printf("\nPower Activated: Teleportation			(Doesn't Work Yet)\n");
@@ -528,7 +545,7 @@ stateResult_t rvWeaponRailgun::State_Fire(const stateParms_t& parms) {
 				gameLocal.Printf("\nPower: Fly/NoClip\n");
 			}
 			else if (powerThing == 4) {
-				gameLocal.Printf("\nPower: Marine guy\n");
+				gameLocal.Printf("\nPower: Summon a friend\n");
 			}
 			else if (powerThing == 5) {
 				gameLocal.Printf("\nPower: Teleportation\n");
