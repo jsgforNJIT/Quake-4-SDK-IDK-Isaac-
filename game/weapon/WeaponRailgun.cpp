@@ -18,6 +18,7 @@ public:
 	void				Restore(idRestoreGame* savefile);
 	void				PreSave(void);
 	void				PostSave(void);
+	virtual void			Think(void);
 
 protected:
 
@@ -37,6 +38,9 @@ private:
 	int					fireHeldTime;
 	//New Stuff: Variables
 	int	powerThing = 1;
+	int godTime = 0;
+	int noClipTime = 0;
+	int powerTime = 20000;
 
 	stateResult_t		State_Raise(const stateParms_t& parms);
 	stateResult_t		State_Lower(const stateParms_t& parms);
@@ -405,6 +409,30 @@ stateResult_t rvWeaponRailgun::State_Charged(const stateParms_t& parms) {
 	return SRESULT_ERROR;
 }
 
+
+//THINKING
+void rvWeaponRailgun::Think(void) {
+	//gameLocal.Printf("Yeah, I'm thinkin' 1 \n");
+	int startTheFIRIN = 0;
+	rvWeapon::Think();
+	if ((gameLocal.time - godTime > powerTime) && (owner->godmode)){
+		owner->godmode = false;
+	}
+	else if (gameLocal.time - godTime > powerTime/2) {
+		startTheFIRIN = startTheFIRIN + 1;
+	}
+	if ((gameLocal.time - noClipTime > powerTime) && (owner->noclip)) {
+		owner->noclip = false;
+	}
+	else if (gameLocal.time - noClipTime > powerTime / 2) {
+		startTheFIRIN = startTheFIRIN + 1;
+	}
+
+	if (startTheFIRIN == 2) {
+		PlayEffect("fx_normalflash", barrelJointView, false);
+	}
+}
+
 /*
 ================
 rvWeaponBlaster::State_Fire
@@ -441,6 +469,28 @@ stateResult_t rvWeaponRailgun::State_Fire(const stateParms_t& parms) {
 		if (gameLocal.time - fireHeldTime > chargeTime) {
 			PlayEffect("fx_chargedflash", barrelJointView, false);
 			PlayAnim(ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames);
+
+			if (powerThing == 1) {
+				gameLocal.Printf("\nPower Activated: Vampire\n");
+				owner->GivePowerUp(POWERUP_DOUBLER, SEC2MS(30.0f));
+				owner->GivePowerUp(POWERUP_REGENERATION, SEC2MS(30.0f));
+			}
+			else if (powerThing == 2) {
+				gameLocal.Printf("\nPower Activated: Invincibility\n");
+				owner->godmode = true;
+				godTime = gameLocal.GetTime();
+			}
+			else if (powerThing == 3) {
+				gameLocal.Printf("\nPower Activated: Fly/NoClip\n");
+				owner->noclip = true;
+				noClipTime = gameLocal.GetTime();
+			}
+			else if (powerThing == 4) {
+				gameLocal.Printf("\nPower Activated: Marine guy\n");
+			}
+			else if (powerThing == 5) {
+				gameLocal.Printf("\nPower Activated: Teleportation\n");
+			}
 		}
 		else {
 			if (powerThing < 5) {

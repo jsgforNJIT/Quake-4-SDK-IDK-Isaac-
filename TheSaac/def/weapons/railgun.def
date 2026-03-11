@@ -227,6 +227,8 @@ entityDef weapon_railgun
 	//New Stuff
 	"def_hitscan"				"hitscan_bullet"
 	"powerThing"				"1"
+	"godTime"					"0"
+	"noClipTime"				"0"
 
 
 }
