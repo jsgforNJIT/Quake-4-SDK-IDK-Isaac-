@@ -64,7 +64,7 @@ entityDef weapon_hyperblaster
 
 	"spawnclass"				"idItem"
 	"weaponclass"				"rvWeaponHyperblaster"
-	"weaponname"				"Blaster"
+	"weaponname"				"Monstor's Hemohromag"
 	"size"						"32 32 32"
 
   	"model_view"				"weapon_blaster_view"

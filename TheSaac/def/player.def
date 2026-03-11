@@ -671,6 +671,7 @@ entityDef player_marine
 	"def_weapon7"						"weapon_railgun"
 	"weapon7_best"						"0"
 	"weapon7_cycle"						"1"
+	"weapon7_flashlight"				"1"
 
 	"def_weapon8"						"weapon_lightninggun"
 	"weapon8_best"						"1"
@@ -684,12 +685,12 @@ entityDef player_marine
 	"weapon10_best"						"0"
 	"weapon10_cycle"					"1"	
 
-
+	
 	//New Weapon
-	"def_weapon11"						"weapon_blaster2"
-	"weapon11_best"						"1"
-	"weapon11_cycle"					"1"
-	"weapon0_flashlight"				"1"
+	//"def_weapon11"						"weapon_blaster2"
+	//"weapon11_best"						"1"
+	//"weapon11_cycle"					"1"
+	//"weapon0_flashlight"				"1"
 
 	"mtr_wound"						"textures/decals/hurt02"
 	"mtr_splat"						"textures/decals/dsplat2"

@@ -49,7 +49,7 @@ entityDef viewStyle_q3_hyperblaster {
 // Weapon Definition
 //--------------------------------------------------------------------------------------------------------------------
 
-entityDef weapon_hyperblaster
+entityDef weapon_hyperblasterAAAAAA
 {
 	"editor_menu"				"pickup"
 	"editor_color"				".3 .3 1"
@@ -59,7 +59,7 @@ entityDef weapon_hyperblaster
 	"editor_usage"				"HyperBlaster"
 
 	"spawnclass"				"idItem"
-	"weaponclass"				"rvWeaponHyperblaster"
+	"weaponclass"				"rvWeaponHyperblasterAAAAAA"
 	"size"						"32 32 32"
   	"model_view"				"weapon_hyperblaster_view"
   	"model_view_strogg"			"weapon_hyperblaster_view_strogg"

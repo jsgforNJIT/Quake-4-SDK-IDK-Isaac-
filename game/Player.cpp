@@ -8969,7 +8969,8 @@ void idPlayer::Move( void ) {
 	physicsObj.SetMaxJumpHeight( pm_jumpheight.GetFloat() );
 
 	if ( noclip ) {
-		physicsObj.SetContents( 0 );
+		gameLocal.Printf("Slappin' \n");
+		physicsObj.SetContents(CONTENTS_BODY | (use_combat_bbox ? CONTENTS_SOLID : 0));
 		physicsObj.SetMovementType( PM_NOCLIP );
 	} else if ( spectating || ( gameLocal.isClient && gameLocal.GetLocalPlayer() && gameLocal.GetLocalPlayer()->GetInstance() != instance ) ) {
 		physicsObj.SetContents( 0 );
