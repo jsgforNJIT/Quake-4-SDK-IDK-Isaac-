@@ -41,6 +41,8 @@ private:
 	int godTime = 0;
 	int noClipTime = 0;
 	int powerTime = 20000;
+	int regenTime = 0;
+	int regenPulse = 0;
 
 	stateResult_t		State_Raise(const stateParms_t& parms);
 	stateResult_t		State_Lower(const stateParms_t& parms);
@@ -415,6 +417,20 @@ void rvWeaponRailgun::Think(void) {
 	//gameLocal.Printf("Yeah, I'm thinkin' 1 \n");
 	int startTheFIRIN = 0;
 	rvWeapon::Think();
+	if (gameLocal.time - regenTime < SEC2MS(30.0f)) {
+		if (gameLocal.time - regenPulse > SEC2MS(1.0f)) {
+			if (owner->health + 5 <= 100) {
+				owner->health += 5;
+			}
+			else if (owner->health + 5 > 100) {
+				owner->health = 100;
+			}
+			regenPulse = gameLocal.time + SEC2MS(1.0f);
+		}
+	}
+	
+	
+	
 	if ((gameLocal.time - godTime > powerTime) && (owner->godmode)){
 		owner->godmode = false;
 	}
@@ -473,7 +489,9 @@ stateResult_t rvWeaponRailgun::State_Fire(const stateParms_t& parms) {
 			if (powerThing == 1) {
 				gameLocal.Printf("\nPower Activated: Vampire\n");
 				owner->GivePowerUp(POWERUP_DOUBLER, SEC2MS(30.0f));
-				owner->GivePowerUp(POWERUP_REGENERATION, SEC2MS(30.0f));
+				//owner->GivePowerUp(POWERUP_REGENERATION, SEC2MS(30.0f));
+				regenTime = gameLocal.GetTime();
+				regenPulse = gameLocal.GetTime();
 			}
 			else if (powerThing == 2) {
 				gameLocal.Printf("\nPower Activated: Invincibility\n");
@@ -486,10 +504,10 @@ stateResult_t rvWeaponRailgun::State_Fire(const stateParms_t& parms) {
 				noClipTime = gameLocal.GetTime();
 			}
 			else if (powerThing == 4) {
-				gameLocal.Printf("\nPower Activated: Marine guy\n");
+				gameLocal.Printf("\nPower Activated: Marine guy			(Doesn't Work Yet)\n");
 			}
 			else if (powerThing == 5) {
-				gameLocal.Printf("\nPower Activated: Teleportation\n");
+				gameLocal.Printf("\nPower Activated: Teleportation			(Doesn't Work Yet)\n");
 			}
 		}
 		else {
