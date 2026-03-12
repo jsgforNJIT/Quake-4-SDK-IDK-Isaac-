@@ -43,6 +43,7 @@ private:
 	int powerTime = 20000;
 	int regenTime = 0;
 	int regenPulse = 0;
+	int teleportDist = 700;
 
 	stateResult_t		State_Raise(const stateParms_t& parms);
 	stateResult_t		State_Lower(const stateParms_t& parms);
@@ -524,7 +525,12 @@ stateResult_t rvWeaponRailgun::State_Fire(const stateParms_t& parms) {
 				}*/
 			}
 			else if (powerThing == 5) {
-				gameLocal.Printf("\nPower Activated: Teleportation			(Doesn't Work Yet)\n");
+				gameLocal.Printf("\nPower Activated: Teleportation\n");
+				idAngles	angles;
+				angles.Zero();
+				angles.yaw = owner->GetPhysics()->GetAxis()[0].ToYaw();
+
+				owner->SetOrigin(playerViewOrigin + playerViewAxis[0] * teleportDist);
 			}
 		}
 		else {
