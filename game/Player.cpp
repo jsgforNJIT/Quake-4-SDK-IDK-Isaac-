@@ -4273,6 +4273,11 @@ bool idPlayer::GiveItem( idItem *item ) {
 	return gave;
 }
 
+
+//This part is like really important stuff for the mod
+//mostimportant
+
+
 /*
 ===============
 idPlayer::PowerUpModifier
