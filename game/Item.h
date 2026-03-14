@@ -131,7 +131,7 @@ private: // FIXME: Temp hack while Eric gets back to me about why GameState.cpp 
 
 ===============================================================================
 */
-
+//Important/mostimportant
 class idItemPowerup : public idItem {
 public:
 	CLASS_PROTOTYPE( idItemPowerup );

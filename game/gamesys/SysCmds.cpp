@@ -477,6 +477,7 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 		}
 	}
 // RAVEN BEGIN
+	//This part has powerups/power ups/power-ups
 	if (idStr::Icmp(name, "quad") == 0) {
 		player->GivePowerUp( POWERUP_QUADDAMAGE, SEC2MS( 30.0f ) );
 		return;
@@ -517,6 +518,37 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 		return;
 	}
 // RAVEN END
+	//NEW STUFF: COMMANDS for Powerups
+	if (idStr::Icmp(name, "newfriends") == 0) {
+		player->GivePowerUp(POWERUP_NEW_FRIENDS, -1);
+		return;
+	}
+
+	if (idStr::Icmp(name, "morearmor") == 0) {
+		player->GivePowerUp(POWERUP_MORE_ARMOR, -1);
+		return;
+	}
+
+	if (idStr::Icmp(name, "morehealth") == 0) {
+		player->GivePowerUp(POWERUP_MORE_HEALTH, -1);
+		return;
+	}
+
+	if (idStr::Icmp(name, "dodge") == 0) {
+		player->GivePowerUp(POWERUP_DODGE, -1);
+		return;
+	}
+
+	if (idStr::Icmp(name, "danger") == 0) {
+		player->GivePowerUp(POWERUP_DANGER, -1);
+		return;
+	}
+
+
+
+
+
+	//NEW STUFF END
 
 	if ( !idStr::Icmp ( name, "wpmod_all" ) ) {
 		player->GiveWeaponMods ( 0xFFFFFFFF );
@@ -534,6 +566,8 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 	if ( !give_all && !player->Give( name, value ) ) {
 		gameLocal.Printf( "unknown item\n" );
 	}
+
+	
 }
 
 /*

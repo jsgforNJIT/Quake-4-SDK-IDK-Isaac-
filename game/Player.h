@@ -117,6 +117,8 @@ typedef struct {
  	idVec3	pos;
 } aasLocation_t;
 
+//Powerups/power ups
+// important/most important
 // powerups
 enum {
 	// standard powerups
@@ -140,14 +142,26 @@ enum {
 		
 	POWERUP_DEADZONE,
 
+
 	// Team Powerups
 	POWERUP_TEAM_AMMO_REGEN,
 	POWERUP_TEAM_HEALTH_REGEN,
 	POWERUP_TEAM_DAMAGE_MOD,
 	
-	POWERUP_MAX
+	POWERUP_MAX,
+
+
+	//New Stuff
+	POWERUP_NEW_FRIENDS,
+	POWERUP_MORE_ARMOR,
+	POWERUP_MORE_HEALTH,
+	POWERUP_DODGE,
+	POWERUP_DANGER
+	
+
 };
 
+//Stuff affected by Pmod
 enum {
 	PMOD_SPEED = 0,
 	PMOD_PROJECTILE_DAMAGE,
@@ -191,7 +205,7 @@ typedef enum {
 } itemBuyStatus_t;
 
 const int	ASYNC_PLAYER_TOURNEY_STATUS_BITS = idMath::BitsForInteger( PTS_NUM_STATES );
-
+//This is where the max health/maxhealth is as well as max armor/maxarmor
 class idInventory {
 public:
 	int						maxHealth;
