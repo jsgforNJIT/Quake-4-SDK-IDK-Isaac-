@@ -441,6 +441,7 @@ public:
 
 	//New stuff: idPlayer public
 	bool				betterFriends;
+	bool				canDodge;
 
 public:
 	CLASS_PROTOTYPE( idPlayer );
@@ -1023,7 +1024,8 @@ private:
 	const idDeclEntityDef*	itemCosts;
 
 	//New stuff: idPlayer private
-	
+	int	dodgeTimerSmall;
+	int dodgeTimerMin;
 
 
 

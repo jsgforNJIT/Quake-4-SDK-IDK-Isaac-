@@ -1818,8 +1818,15 @@ void idPlayer::Spawn( void ) {
 	// allow thinking during cinematics
 	cinematic = true;
 
-	//New Stuff: idPlayer
+	//New Stuff: idPlayer::Spawn
 	betterFriends = false;
+
+	canDodge = false;
+	dodgeTimerSmall = gameLocal.GetTime();
+	dodgeTimerMin = SEC2MS(5.0f);
+
+
+	//New Stuff end
 
 	if ( gameLocal.isMultiplayer ) {
 		// always start in spectating state waiting to be spawned in
@@ -9301,6 +9308,8 @@ void idPlayer::LoadDeferredModel( void ) {
 	}
 }
 
+
+//HERE FOR THE DODGE POWERUP THINKING
 /*
 ==============
 idPlayer::Think
@@ -10118,6 +10127,14 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		return;
 	}
 	
+	//New Stuff: dodge mechanic
+	if (canDodge) {
+		if (gameLocal.GetTime() - dodgeTimerSmall > dodgeTimerMin) {
+			dodgeTimerSmall = gameLocal.GetTime();
+			return;
+		}
+	}
+
  	if ( !fl.takedamage || noclip || spectating || gameLocal.inCinematic ) {
 		// If in vehicle let it know that something is trying to hurt the invisible player
 		if ( IsInVehicle ( ) ) {
