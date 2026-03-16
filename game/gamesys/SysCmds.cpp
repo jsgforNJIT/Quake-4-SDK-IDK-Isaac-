@@ -527,11 +527,15 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 
 	if (idStr::Icmp(name, "morearmor") == 0) {
 		player->GivePowerUp(POWERUP_MORE_ARMOR, -1);
+		player->inventory.maxarmor += 50;
+		player->inventory.armor += 50;
 		return;
 	}
 
 	if (idStr::Icmp(name, "morehealth") == 0) {
 		player->GivePowerUp(POWERUP_MORE_HEALTH, -1);
+		player->inventory.maxHealth += 50;
+		player->health += 50;
 		return;
 	}
 
