@@ -505,20 +505,52 @@ stateResult_t rvWeaponRailgun::State_Fire(const stateParms_t& parms) {
 			}
 			else if (powerThing == 4) {
 				gameLocal.Printf("\nPower Activated: Summon a friend\n");
-				idDict marn;
-				marn.Set("classname", "char_marine");
+				
+				if (owner->betterFriends) {
+					idDict marn1;
+					marn1.Set("classname", "char_marine_medic_armed");
+					float yaw = owner->viewAngles.yaw;
+					gameLocal.Printf("%f \n", yaw);
+					marn1.Set("angle", va("%f", yaw + 180));
 
-				float yaw = owner->viewAngles.yaw;
-				gameLocal.Printf("%f \n", yaw);
-				marn.Set("angle", va("%f", yaw + 180));
+					idVec3	org = playerViewOrigin + playerViewAxis[0] * 1;
+					gameLocal.Printf(org.ToString());
+					gameLocal.Printf("\n");
+					marn1.Set("origin", org.ToString());
+					gameLocal.SpawnEntityDef(marn1);
 
-				idVec3	org = playerViewOrigin + playerViewAxis[0] * 1;
-				gameLocal.Printf(org.ToString());
-				gameLocal.Printf("\n");
-				marn.Set("origin", org.ToString());
+
+					idDict marn2;
+					marn2.Set("classname", "char_marine_tech_armed");
+					yaw = owner->viewAngles.yaw;
+					gameLocal.Printf("%f \n", yaw);
+					marn2.Set("angle", va("%f", yaw + 180));
+
+					org = playerViewOrigin + playerViewAxis[0] * 2;
+					gameLocal.Printf(org.ToString());
+					gameLocal.Printf("\n");
+					marn2.Set("origin", org.ToString());
+					gameLocal.SpawnEntityDef(marn2);
+				}
+				else {
+					idDict marn;
+					marn.Set("classname", "char_marine");
+					float yaw = owner->viewAngles.yaw;
+					gameLocal.Printf("%f \n", yaw);
+					marn.Set("angle", va("%f", yaw + 180));
+
+					idVec3	org = playerViewOrigin + playerViewAxis[0] * 1;
+					gameLocal.Printf(org.ToString());
+					gameLocal.Printf("\n");
+					marn.Set("origin", org.ToString());
+					gameLocal.SpawnEntityDef(marn);
+				}
+				
+
+				
 
 				//idEntity* newEnt = NULL;
-				gameLocal.SpawnEntityDef(marn);
+				
 				/*if (newEnt) {
 					gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
 				}*/

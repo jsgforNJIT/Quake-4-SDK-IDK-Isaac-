@@ -439,6 +439,9 @@ public:
 	float					buyMenuCash;
 // RITUAL END
 
+	//New stuff: idPlayer public
+	bool				betterFriends;
+
 public:
 	CLASS_PROTOTYPE( idPlayer );
 
@@ -1019,6 +1022,11 @@ private:
 
 	const idDeclEntityDef*	itemCosts;
 
+	//New stuff: idPlayer private
+	
+
+
+
 	bool					WantSmoothing( void ) const;
 	void					PredictionErrorDecay( void );
 
@@ -1133,6 +1141,10 @@ private:
 
 	bool					IsLegsIdle						( bool crouching ) const;
 	
+	
+
+
+
 	stateResult_t			State_Wait_Alive				( const stateParms_t& parms );
 	stateResult_t			State_Wait_ReloadAnim			( const stateParms_t& parms );
 	

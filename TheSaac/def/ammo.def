@@ -64,6 +64,9 @@ entityDef ammo_machinegun
 	"dbFilter"				"item"
 
 	"editor_ignore"				"0"
+
+	//New Stuff
+	"whatPowerup"			"POWERUP_NEW_FRIENDS"
 }
 
 entityDef ammo_machinegun_mp
@@ -100,6 +103,9 @@ entityDef ammo_nailgun
 	"dbText"				"Ammo for the nailgun.... <more text here>"
 	"dbFilter"				"item"
 	"editor_ignore"				"0"
+
+	//New Stuff
+	"whatPowerup"			"POWERUP_MORE_ARMOR"
 }
 
 entityDef ammo_nailgun_mp
@@ -134,6 +140,9 @@ entityDef ammo_railgun
 	"dbText"				"Ammo for the railgun.... <more text here>"
 	"dbFilter"				"item"
 	"editor_ignore"				"0"
+
+	//New Stuff
+	"whatPowerup"			"POWERUP_MORE_HEALTH"
 }
 
 entityDef ammo_railgun_mp
@@ -168,6 +177,9 @@ entityDef ammo_shotgun
 	"dbText"				"Ammo for the shotgun.... <more text here>"
 	"dbFilter"				"item"
 	"editor_ignore"				"0"
+
+	//New Stuff
+	"whatPowerup"			"POWERUP_DODGE"
 }
 
 entityDef ammo_shotgun_mp
@@ -199,6 +211,9 @@ entityDef ammo_hyperblaster
 	"inv_icon"				"gfx/guis/hud/icons/item_hyperblaster.tga"
 
 	"editor_ignore"				"0"
+
+	//New Stuff
+	"whatPowerup"			"POWERUP_DANGER"
 }
 
 entityDef ammo_hyperblaster_mp

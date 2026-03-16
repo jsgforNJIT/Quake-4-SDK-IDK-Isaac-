@@ -520,7 +520,8 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 // RAVEN END
 	//NEW STUFF: COMMANDS for Powerups
 	if (idStr::Icmp(name, "newfriends") == 0) {
-		player->GivePowerUp(POWERUP_NEW_FRIENDS, -1);
+		gameLocal.Printf("This should give new friends\n");
+		player->betterFriends = true;
 		return;
 	}
 

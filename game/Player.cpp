@@ -1342,6 +1342,8 @@ idPlayer::idPlayer() {
 	teamAmmoRegenPending	= false;
 	teamDoubler			= NULL;		
 	teamDoublerPending		= false;
+
+	
 }
 
 /*
@@ -1815,6 +1817,9 @@ void idPlayer::Spawn( void ) {
 
 	// allow thinking during cinematics
 	cinematic = true;
+
+	//New Stuff: idPlayer
+	betterFriends = false;
 
 	if ( gameLocal.isMultiplayer ) {
 		// always start in spectating state waiting to be spawned in
@@ -4749,6 +4754,18 @@ bool idPlayer::GivePowerUp( int powerup, int time, bool team ) {
 			break;
 		}
 //RITUAL END
+
+		//New Stuff: implementation for powerup
+		/*case POWERUP_NEW_FRIENDS: {
+			betterFriends = true;
+			gameLocal.Printf("%b \n", betterFriends);
+			break;
+		}
+		*/
+
+
+
+
 	}
 
 	// only start effects if in our instances and snapshot
@@ -4774,6 +4791,8 @@ void idPlayer::ClearPowerup( int i ) {
 		msg.WriteBits( 0, 1 );
 		ServerSendEvent( EVENT_POWERUP, &msg, false, -1 );
 	}
+
+	betterFriends = false;
 
  	inventory.powerups &= ~( 1 << i );
 	inventory.powerupEndTime[ i ] = 0;
@@ -10076,6 +10095,10 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 
 	// RAVEN BEGIN
 	// twhitaker: difficulty levels
+
+	//I think I can make an instant return for if the dodge timer is still ongoing using fl.takedamage (make sure it also resets the timer)
+
+
 	float modifiedDamageScale = damageScale;
 	
 	if ( !gameLocal.isMultiplayer ) {
