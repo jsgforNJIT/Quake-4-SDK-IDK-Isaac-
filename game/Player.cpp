@@ -4298,6 +4298,8 @@ idPlayer::PowerUpModifier
 float idPlayer::PowerUpModifier( int type ) {
 	float mod = 1.0f;
 
+	//For danger, override POWERUP_QUADDAMAGE
+
 	if ( PowerUpActive( POWERUP_QUADDAMAGE ) ) {
 		switch( type ) {
 			case PMOD_PROJECTILE_DAMAGE: {
@@ -4312,6 +4314,14 @@ float idPlayer::PowerUpModifier( int type ) {
 				mod *= 2.0f;
 				break;
 			}
+
+			case PMOD_SPEED:
+				mod *= 1.75f;
+				break;
+
+			case PMOD_FIRERATE:
+				mod *= 0.5f;
+				break;
 		}
 	}
 

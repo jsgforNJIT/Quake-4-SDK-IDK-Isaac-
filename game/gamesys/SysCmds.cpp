@@ -547,7 +547,10 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 	}
 
 	if (idStr::Icmp(name, "danger") == 0) {
-		player->GivePowerUp(POWERUP_DANGER, -1);
+		player->GivePowerUp(POWERUP_QUADDAMAGE, -1);
+		//player->GivePowerUP(POWERUP_DANGER, -1);
+		player->inventory.maxHealth *= 0.2;
+		player->health *= 0.2;
 		return;
 	}
 
