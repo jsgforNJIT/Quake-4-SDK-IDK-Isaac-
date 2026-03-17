@@ -588,6 +588,46 @@ bool idItem::GiveToPlayer( idPlayer *player ) {
 		return false;
 	}
 
+	gameLocal.Printf("This is that thing! (%s)\n", this->GetEntityDefName());
+
+	//New Stuff: implimenting pickup/pick up for ammo
+	/*
+	if (strcmp("ammo_machinegun", "ammo_machinegun") == 0) {
+		gameLocal.Printf("Why is this not working? \n");
+	}
+	else {
+		gameLocal.Printf("Huh?");
+	}
+	*/
+
+	if (strcmp(this->GetEntityDefName(), "ammo_machinegun") == 0) {
+		player->betterFriends = true;
+	}
+	else if (strcmp(this->GetEntityDefName(), "ammo_nailgun") == 0) {
+		player->inventory.maxarmor += 50;
+		player->inventory.armor += 50;
+	}
+	else if (strcmp(this->GetEntityDefName(), "ammo_railgun") == 0) {
+		player->inventory.maxHealth += 50;
+		player->health += 50;
+	}
+	else if (strcmp(this->GetEntityDefName(), "ammo_shotgun") == 0) {
+		player->GivePowerUp(POWERUP_DODGE, -1);
+		player->canDodge = true;
+	}
+	else if (strcmp(this->GetEntityDefName(), "ammo_hyperblaster") == 0) {
+		player->GivePowerUp(POWERUP_QUADDAMAGE, -1);
+		//player->GivePowerUP(POWERUP_DANGER, -1);
+		player->inventory.maxHealth *= 0.2;
+		player->health *= 0.2;
+	}
+	else {
+		gameLocal.Printf("THIS AIN'T WORKING CHIEF \n");
+	}
+
+
+
+
 	if ( spawnArgs.GetBool( "inv_carry" ) ) {
 		return player->GiveInventoryItem( &spawnArgs );
 	} 
@@ -1228,6 +1268,8 @@ bool idItemPowerup::Pickup( idPlayer* player ) {
 	if( unique ) {
 		BecomeActive( TH_THINK );
 	}
+
+	//gameLocal.Printf("You Just pickeed up an item! \n");
 
 	return pickup;
 }
