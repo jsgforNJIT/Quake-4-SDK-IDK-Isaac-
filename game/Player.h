@@ -442,6 +442,7 @@ public:
 	//New stuff: idPlayer public
 	bool				betterFriends;
 	bool				canDodge;
+	int					credits;
 
 public:
 	CLASS_PROTOTYPE( idPlayer );

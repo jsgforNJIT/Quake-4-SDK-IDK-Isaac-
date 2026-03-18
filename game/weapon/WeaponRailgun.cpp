@@ -556,7 +556,12 @@ stateResult_t rvWeaponRailgun::State_Fire(const stateParms_t& parms) {
 				}*/
 			}
 			else if (powerThing == 5) {
-				gameLocal.Printf("\nPower Activated: Teleportation			(Doesn't Work Yet)\n");
+				gameLocal.Printf("\nPower Activated: Teleportation\n");
+				idAngles angles;
+				angles.Zero();
+				angles.yaw = owner->GetPhysics()->GetAxis()[0].ToYaw();
+
+				owner->SetOrigin(playerViewOrigin + playerViewAxis[0] * 1000);
 			}
 		}
 		else {

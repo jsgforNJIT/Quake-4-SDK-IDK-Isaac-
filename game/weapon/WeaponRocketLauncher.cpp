@@ -155,7 +155,7 @@ void rvWeaponRocketLauncher::Think ( void ) {
 		return;
 	}
 	//gameLocal.Printf(" Go back timer (%i);   ", goBackTimer);
-	gameLocal.Printf(" Minus and stuff :   (%i), (%i), (%i);   \n", fireHeldTime, gameLocal.time, 2000);
+	//gameLocal.Printf(" Minus and stuff :   (%i), (%i), (%i);   \n", fireHeldTime, gameLocal.time, 2000);
 	
 	if (gameLocal.time - fireHeldTime < 2000) {
 		if ( guideEffect ) {
@@ -457,8 +457,8 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
 			Attack ( false, 1, spread, 0, 1.0f );
 			fireHeldTime = gameLocal.time;
-			gameLocal.Printf("WHY WON'T YOU DIE? ");
-			gameLocal.Printf(" Auto return time :   (%i);   ", fireHeldTime);
+			//gameLocal.Printf("WHY WON'T YOU DIE? ");
+			//gameLocal.Printf(" Auto return time :   (%i);   ", fireHeldTime);
 			//Attack(true, 2, spread, 0, 1.0f);
 			/*if (gameLocal.time - fireHeldTime > chargeTime) {
 				Attack(true, 2, spread, 0, 1.0f);

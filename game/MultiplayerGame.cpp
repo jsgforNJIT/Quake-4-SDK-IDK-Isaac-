@@ -9129,7 +9129,7 @@ bool idMultiplayerGame::IsBuyingAllowedInTheCurrentGameMode( void ) {
 
 	return false;
 	*/
-	gameLocal.Printf("IsBuyingAllowedInTheCurrentGameMode triggered \n");
+	//gameLocal.Printf("IsBuyingAllowedInTheCurrentGameMode triggered \n");
 	return true;
 }
 

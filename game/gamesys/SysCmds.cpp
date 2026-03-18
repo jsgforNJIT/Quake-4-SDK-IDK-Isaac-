@@ -435,7 +435,21 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 	}
 
 	if ( ( idStr::Cmpn( name, "weapon_", 7 ) == 0 ) || ( idStr::Cmpn( name, "item_", 5 ) == 0 ) || ( idStr::Cmpn( name, "ammo_", 5 ) == 0 ) || ( idStr::Icmp( name, "ammorefill" ) == 0 ) ) {
+		if ((player->credits < 20) && (idStr::Cmpn(name, "weapon_", 7) == 0)) {
+			gameLocal.Printf("\nSorry, but you lack the credits (20 credits) to buy this weapon.\n");
+			return;
+		}
+		else if ((player->credits >= 20) && (idStr::Cmpn(name, "weapon_", 7) == 0)) {
+			player->credits -= 20;
+			gameLocal.Printf("\nPlayer's current credits: (%i)\n", player->credits);
+		}
 		player->GiveItem( name );
+		//gameLocal.Printf(name);
+		if (idStr::Icmp(name, "weapon_rocketlauncher") == 0) {
+			//gameLocal.Printf("Yeah, truetho\n");
+			player->GiveWeaponMod("wpmod_rocketlauncher_homing");
+		}
+		//gameLocal.Printf("\nI gave you a weapon!\n");
 		return;
 	}
 
@@ -519,6 +533,30 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 	}
 // RAVEN END
 	//NEW STUFF: COMMANDS for Powerups
+	if (idStr::Icmp(name, "credits") == 0) {
+		player->credits = 100;
+		gameLocal.Printf("\nPlayer's current credits: (%i)\n", player->credits);
+		return;
+	}
+
+	//Checks to see if player can afford the item
+	if ((player->credits < 10) && ((idStr::Icmp(name, "newfriends") == 0) || (idStr::Icmp(name, "morearmor") == 0) || (idStr::Icmp(name, "morehealth") == 0) || (idStr::Icmp(name, "dodge") == 0) || (idStr::Icmp(name, "danger") == 0))) {
+		gameLocal.Printf("\nSorry, but you lack the credits (10 credits) to buy this item.\n");
+		return;
+	}
+	else if ((player->credits >= 10) && ((idStr::Icmp(name, "newfriends") == 0) || (idStr::Icmp(name, "morearmor") == 0) || (idStr::Icmp(name, "morehealth") == 0) || (idStr::Icmp(name, "dodge") == 0) || (idStr::Icmp(name, "danger") == 0))) {
+		player->credits -= 10;
+		gameLocal.Printf("\nPlayer's current credits: (%i)\n", player->credits);
+	}
+
+	if (idStr::Icmp(name, "newfriends") == 0) {
+		player->GivePowerUp(POWERUP_NEW_FRIENDS, -1);
+		gameLocal.Printf("This should give new friends\n");
+		player->betterFriends = true;
+		return;
+	}
+	
+	
 	if (idStr::Icmp(name, "newfriends") == 0) {
 		player->GivePowerUp(POWERUP_NEW_FRIENDS, -1);
 		gameLocal.Printf("This should give new friends\n");
@@ -578,6 +616,30 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 	}
 
 	
+}
+//New Command: checkbuymenu
+void Cmd_Check_Buy_Menu_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	gameLocal.Printf("\nPlayer's current credits: (%i)", player->credits);
+	gameLocal.Printf("\nTo buy an item, put in the console 'give <item that you want to buy>'");
+
+	gameLocal.Printf("\n\nWeapons (20 credits):");
+	gameLocal.Printf("\nmachine gun : 'weapon_machinegun'");
+	gameLocal.Printf("\nshotgun : 'weapon_shotgun'");
+	gameLocal.Printf("\ngrenade lung : 'weapon_hyperblaster'");
+	gameLocal.Printf("\nMULT nailgun : 'weapon_nailgun'");
+	gameLocal.Printf("\nrocket boomerang : 'weapon_rocketlauncher'");
+	gameLocal.Printf("\npowerup selecter : 'weapon_railgun'");
+	gameLocal.Printf("\nfaux brim : 'weapon_lightninggun'");
+
+	gameLocal.Printf("\n\nItems (10 credits):");
+	gameLocal.Printf("\nupgraded friends from powerup: 'newfriends'");
+	gameLocal.Printf("\narmor increase : 'morearmor'");
+	gameLocal.Printf("\nhealth increase : 'morehealth'");
+	gameLocal.Printf("\noccasional dodge : 'dodge'");
+	gameLocal.Printf("\ndangerous 'all' stats up : 'danger'\n");
 }
 
 /*
@@ -2980,7 +3042,27 @@ void Cmd_WhereAmI_f( const idCmdArgs& args ) {
 	idMat3 axis = {};
 
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	gameLocal.Printf("Heeeeeeelp!");	
+	//gameLocal.Printf("Heeeeeeelp!");	
+	gameLocal.Printf("\ntype 'checkbuy' to see what you can buy\n");
+	gameLocal.Printf("\n\nWeapon changes:\n");
+	gameLocal.Printf("The weapon blaster is a 6-shot projectile weapon that requires being charged via holding the fire button to reload\n");
+	gameLocal.Printf("Machine gun and shotgun now shoot projectiles\n");
+	gameLocal.Printf("Hyperblaster is replaced with a grenade launcher that shoots a different number of projectiles based on the time the fire button is held down\n");
+	gameLocal.Printf("Rocket Launcher now functions similar to a boomerang\n");
+	gameLocal.Printf("Railgun is replaced by a weapon that allows you to select and activate a powerup\n");
+	gameLocal.Printf("Lightning gun needs to be charged for a short amount of time and only lasts for a little time after that:\n");
+	gameLocal.Printf("\n\nNew Powerups:\n");
+	gameLocal.Printf("'summon a friend' summons a marine to fight for you\n");
+	gameLocal.Printf("'vampirism' gives you increased damage and passive regen\n");
+	gameLocal.Printf("'invincibility' activates invincibility for 30 seconds\n");
+	gameLocal.Printf("'flight/noclip' activates noclip for 30 seconds\n");
+	gameLocal.Printf("'teleportation' teleports you in the direction that you are looking\n");
+	gameLocal.Printf("\n\nNew Items:\n");
+	gameLocal.Printf("'Upgraded friends' instead of summoning a regular marine, 'summon a friend' summons both an armed medic and an armed technician\n");
+	gameLocal.Printf("'increased armor' increases armor by 50\n");
+	gameLocal.Printf("'increased health' increases health by 50\n");
+	gameLocal.Printf("'dodge' allows the player to nullify incoming damage once that recharges every 5 seconds\n");
+	gameLocal.Printf("'danger' greatly increases firerate, damage, and speed at the cost of most health\n");
 
 }
 
@@ -3289,6 +3371,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 //Another thing
 	cmdSystem->AddCommand("findHelp", Cmd_WhereAmI_f, CMD_FL_GAME, "Screams in the console for help");
+	cmdSystem->AddCommand("checkbuy", Cmd_Check_Buy_Menu_f, CMD_FL_GAME, "Sees the buy menu and how many credits you have");
 }
 
 /*

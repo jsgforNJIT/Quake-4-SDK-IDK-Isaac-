@@ -158,7 +158,7 @@ rvWeaponBlaster::Spawn
 ================
 */
 void rvWeaponBlaster::Spawn ( void ) {
-	gameLocal.Printf("Weapon Class:   (%s); \n", weaponclass);
+	//gameLocal.Printf("Weapon Class:   (%s); \n", weaponclass);
 	viewModel->SetShaderParm ( BLASTER_SPARM_CHARGEGLOW, 0 );
 	SetState ( "Raise", 0 );
 	
@@ -397,7 +397,7 @@ stateResult_t rvWeaponBlaster::State_Blaster_Reload(const stateParms_t& parms) {
 		PlayAnim(ANIMCHANNEL_TORSO, animName, parms.blendFrames);
 		*/
 		PlayAnim(ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames);
-		gameLocal.Printf(" Blaster_Reload is working:   (%i)  out of  (%i);   ", ammoClip, clipSize);
+		//gameLocal.Printf(" Blaster_Reload is working:   (%i)  out of  (%i);   ", ammoClip, clipSize);
 		return SRESULT_STAGE(STAGE_WAIT);
 	}
 
@@ -535,7 +535,7 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 				Attack ( true, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
-				gameLocal.Printf("FULLY Charged, (%i)", gameLocal.time - fireHeldTime);
+				//gameLocal.Printf("FULLY Charged, (%i)", gameLocal.time - fireHeldTime);
 			} else {
 				Attack ( true, 1, spread, 0, 1.0f );
 				if (ammoClip > 0) {
@@ -543,10 +543,10 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 					PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
 				}
 				else {
-					gameLocal.Printf("          MAGAZINE IS EMPTY          ");
+					//gameLocal.Printf("          MAGAZINE IS EMPTY          ");
 				}
 				
-				gameLocal.Printf("NOT Charged, (%i)", gameLocal.time - fireHeldTime);
+				//gameLocal.Printf("NOT Charged, (%i)", gameLocal.time - fireHeldTime);
 			}
 			fireHeldTime = 0;
 			

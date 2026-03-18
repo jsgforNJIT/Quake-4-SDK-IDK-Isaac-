@@ -588,7 +588,7 @@ bool idItem::GiveToPlayer( idPlayer *player ) {
 		return false;
 	}
 
-	gameLocal.Printf("This is that thing! (%s)\n", this->GetEntityDefName());
+	//gameLocal.Printf("This is that thing! (%s)\n", this->GetEntityDefName());
 
 	//New Stuff: implimenting pickup/pick up for ammo
 	/*
@@ -621,9 +621,9 @@ bool idItem::GiveToPlayer( idPlayer *player ) {
 		player->inventory.maxHealth *= 0.2;
 		player->health *= 0.2;
 	}
-	else {
+	/*else {
 		gameLocal.Printf("THIS AIN'T WORKING CHIEF \n");
-	}
+	}*/
 
 
 

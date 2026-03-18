@@ -829,7 +829,7 @@ stateResult_t rvWeaponLightningGun::State_Fire( const stateParms_t& parms ) {
 			StartSound( "snd_fire_stereo", SND_CHANNEL_ITEM, 0, false, NULL );
 			StartSound( "snd_fire_loop", SND_CHANNEL_BODY2, 0, false, NULL );
 
-			gameLocal.Printf("Blimey! \n");
+			//gameLocal.Printf("Blimey! \n");
 			fireHeldTime = gameLocal.GetTime();
 			
 			viewModel->SetShaderParm( 6, 0 );

@@ -1825,6 +1825,7 @@ void idPlayer::Spawn( void ) {
 	dodgeTimerSmall = gameLocal.GetTime();
 	dodgeTimerMin = SEC2MS(5.0f);
 
+	credits = 0;
 
 	//New Stuff end
 
